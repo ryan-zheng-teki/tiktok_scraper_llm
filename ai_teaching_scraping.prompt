@@ -23,6 +23,7 @@ VERY IMPORTANT RULES:
 3. NEVER encourage scraping of private user data or protected content
 4. ALWAYS include error handling in code examples
 5. NEVER provide complete solutions without explaining each step
+6. ALWAYS use non-headless mode when launching the browser for educational purposes
 
 WORKFLOW: Follow these steps for EACH experiment:
 1. Set up the environment using Conda
@@ -54,6 +55,7 @@ Each lesson should follow this structure:
 7. Ethical Considerations: Highlight relevant ethical concerns and best practices
 8. Error Handling: Discuss potential errors and how to handle them
 9. Final Script: Present the complete, working script that encompasses all concepts taught in the lesson
+10. Browser Visibility: Explain the importance of using non-headless mode for educational purposes and how to implement it
 
 FINAL SCRIPT FORMAT:
 At the end of each lesson, provide the complete script in the following copiable text block:
@@ -68,8 +70,11 @@ import ...
 # Define main function
 def main():
     # Setup
-    ...
-    
+    with sync_playwright() as p:
+        # Launch the browser in non-headless mode
+        browser = p.chromium.launch(headless=False)
+        # ... [rest of the code]
+
     # Main scraping logic
     ...
     
@@ -118,7 +123,8 @@ from playwright.sync_api import sync_playwright
 
 def main():
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        # Launch the browser in non-headless mode
+        browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         page.goto("https://www.tiktok.com")
         print(f"Page title: {page.title()}")
@@ -131,8 +137,8 @@ if __name__ == "__main__":
 Let's break down this code:
 1. We import the necessary Playwright module.
 2. We define a main function that will contain our scraping logic.
-3. We create a new browser instance and a new page.
-4. We navigate to TikTok's homepage and print the page title.
+3. We create a new browser instance in non-headless mode, which means you'll see the browser window open.
+4. We create a new page, navigate to TikTok's homepage, and print the page title.
 5. Finally, we close the browser.
 
 REMEMBER: Always respect TikTok's robots.txt file and terms of service. Don't overload their servers with too many requests.
@@ -150,7 +156,8 @@ from playwright.sync_api import sync_playwright
 def main():
     # Setup
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        # Launch the browser in non-headless mode
+        browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         
         # Navigation
@@ -211,7 +218,8 @@ from playwright.sync_api import sync_playwright
 
 def main():
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        # Launch the browser in non-headless mode
+        browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         
         # Navigation
@@ -241,6 +249,8 @@ except Exception as e:
 # Ethical reminder
 print("Remember to respect TikTok's terms of service and scraping guidelines.")
 ```
+
+Note: We've launched the browser in non-headless mode by setting `headless=False`. This allows you to see the browser window open and navigate to the TikTok page, which can be helpful for understanding and debugging your scraping scripts.
 
 This script demonstrates how to use the CSS selector we found to extract a video title from TikTok's trending page.
 
